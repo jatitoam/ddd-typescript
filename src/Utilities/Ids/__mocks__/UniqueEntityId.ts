@@ -1,3 +1,7 @@
+/**
+ * Mock for tests involving UniqueEntityId
+ * It uses a simple numeric id with string representation.  Equals is always true
+ */
 export class UniqueEntityId {
   constructor(id?: string | number) {}
 
