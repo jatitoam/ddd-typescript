@@ -1,5 +1,5 @@
-import { EntityDefinition } from "Types/Entities/EntityDefinition";
-import { UniqueEntityId } from "Utilities/Ids/UniqueEntityId";
+import { IEntityDefinition } from "Types/Entities/IEntityDefinition";
+import { UniqueEntityId } from "../Utilities/Ids/UniqueEntityId";
 
 /**
  * Abstract Entity class
@@ -19,7 +19,7 @@ export abstract class Entity<T> {
    * Definition of required and optional fields of the entity, for validation
    * Read-only and immutable class property so it has to be defined during inheritance
    */
-  protected readonly definition: EntityDefinition = {
+  protected readonly definition: IEntityDefinition = {
     required: [],
     optional: [],
   };
