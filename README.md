@@ -23,7 +23,7 @@ And additionally, some infrastructural objects:
 
 ## Alpha version
 
-This is still alpha software, not completely functional, however if for some reason you found this and you think it's a promising project, feel free to collaborate by either [Suggesting something](https://github.com/jatitoam/ddd-typescript/issues/new) or simply clone it and send a pull request.
+This is still alpha software, not completely functional, however if for some reason you found this and you think it's a promising project, feel free to collaborate by either [Suggesting something](https://github.com/jatitoam/ddd-typescript/issues/new) or simply fork it and send a pull request.
 
 ## License
 
