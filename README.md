@@ -1,5 +1,7 @@
 # DDD for Typescript
 
+![CodeQL](https://github.com/jatitoam/ddd-typescript/actions/workflows/codeql-analysis.yml/badge.svg)
+
 ## What is this?
 
 This repository intends to implement the architectural classes for any project that wants to base on [Eric Evans' Domain Driven Design](https://www.amazon.com/gp/product/0321125215/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0321125215&linkCode=as2&tag=martinfowlerc-20).
