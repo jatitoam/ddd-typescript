@@ -29,6 +29,12 @@ This is still alpha software, not completely functional, however if for some rea
 
 This repository is managed using the [Vincent Driessen's Successful Git branching model](https://nvie.com/posts/a-successful-git-branching-model), so any contribution is welcome on a proper branch and the pull request must be sent to the [develop](https://github.com/jatitoam/ddd-typescript) branch of this project, where it will be reviewed before merging and properly tested before releasing.
 
+## Acknowledgements
+
+I found inspiration, snippets, resources and counseling by:
+
+- [An Introduction to Domain-Driven Design - DDD w/ TypeScript](https://khalilstemmler.com/articles/domain-driven-design-intro/)
+
 ## License
 
 Distributed under the GPL v.2 license. See [LICENSE](LICENSE) for more information.
