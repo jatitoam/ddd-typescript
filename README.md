@@ -25,6 +25,10 @@ And additionally, some infrastructural objects:
 
 This is still alpha software, not completely functional, however if for some reason you found this and you think it's a promising project, feel free to collaborate by either [Suggesting something](https://github.com/jatitoam/ddd-typescript/issues/new) or simply fork it and send a pull request.
 
+## Contributing
+
+This repository is managed using the [Vincent Driessen's Successful Git branching model](https://nvie.com/posts/a-successful-git-branching-model), so any contribution is welcome on a proper branch and the pull request must be sent to the [develop](https://github.com/jatitoam/ddd-typescript) branch of this project, where it will be reviewed before merging and properly tested before releasing.
+
 ## License
 
 Distributed under the GPL v.2 license. See [LICENSE](LICENSE) for more information.
