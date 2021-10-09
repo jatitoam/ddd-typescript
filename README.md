@@ -27,4 +27,4 @@ This is still alpha software, not completely functional, however if for some rea
 
 ## License
 
-Distributed under the GPL v.2 license. See `LICENSE` for more information.
+Distributed under the GPL v.2 license. See [LICENSE](LICENSE) for more information.
