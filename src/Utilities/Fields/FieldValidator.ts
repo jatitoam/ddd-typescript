@@ -26,31 +26,46 @@ export class FieldValidator<T> {
 
   /**
    * Determines if all fields in data are available as in the definition
+   *
+   * @returns true|string[] true if it succeeds, otherwise the array of missing fields
    */
-  public allFieldsAvailable(): Boolean {
+  public allFieldsAvailable(): true | string[] {
     const data = this.data;
 
-    return this.fields.reduce((allExisting, field) => {
-      return allExisting && typeof data[field.name] !== "undefined";
-    }, true);
+    const missing = this.fields.reduce((missing, field) => {
+      if (typeof data[field.name] === "undefined") missing.push(field.name);
+      return missing;
+    }, []);
+
+    return missing.length === 0 ? true : missing;
   }
 
   /**
+   * Determines if all given data matches the fields in the definition
    *
    * @param Boolean strict Determines if it should fail whether extra data is present according to the definition or not.
-   * @returns
+   * @returns true|IFieldDefinition[] true if all types are valid, otherwise an array of field definition of the fields that don't match
    */
-  public allFieldsTypeMatch(strict: Boolean = false): Boolean {
+  public allFieldsTypeMatch(
+    strict: Boolean = false
+  ): true | IFieldDefinition[] {
     const fields = this.getIndexedFields();
     const data = this.data;
 
-    return Object.keys(data).reduce((allValid, field) => {
-      return (
-        allValid &&
-        ((typeof fields[field] !== "undefined" &&
-          fields[field].type === typeof data[field]) ||
-          (typeof fields[field] === "undefined" && !strict))
-      );
-    }, true);
+    const invalid = Object.keys(data).reduce((invalid, field) => {
+      if (
+        (typeof fields[field] === "undefined" && strict) ||
+        (typeof fields[field] !== "undefined" &&
+          fields[field].type !== typeof data[field])
+      )
+        invalid.push(
+          typeof fields[field] === "undefined"
+            ? { name: field, type: "undefined" }
+            : fields[field]
+        );
+      return invalid;
+    }, []);
+
+    return invalid.length === 0 ? true : invalid;
   }
 }

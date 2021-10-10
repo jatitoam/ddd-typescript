@@ -81,7 +81,11 @@ describe("FieldValidator", () => {
 
   test("Field availability fails when they are not present according to the definition", () => {
     const e = new FieldValidator(mockFieldsDefinition, mockInvalidMissingData);
-    expect(e.allFieldsAvailable()).toBe(false);
+    expect(e.allFieldsAvailable()).toStrictEqual([
+      "number",
+      "bigint",
+      "symbol",
+    ]);
   });
 
   test("Field availability succeeds", () => {
@@ -95,22 +99,34 @@ describe("FieldValidator", () => {
     const e3 = new FieldValidator(mockFieldsDefinition, mockInvalidBooleanData);
     const e4 = new FieldValidator(mockFieldsDefinition, mockInvalidBigintData);
     const e5 = new FieldValidator(mockFieldsDefinition, mockInvalidSymbolData);
-    expect(e1.allFieldsTypeMatch()).toBe(false);
-    expect(e2.allFieldsTypeMatch()).toBe(false);
-    expect(e3.allFieldsTypeMatch()).toBe(false);
-    expect(e4.allFieldsTypeMatch()).toBe(false);
-    expect(e5.allFieldsTypeMatch()).toBe(false);
+    expect(e1.allFieldsTypeMatch()).toStrictEqual([
+      { name: "number", type: "number" },
+    ]);
+    expect(e2.allFieldsTypeMatch()).toStrictEqual([
+      { name: "string", type: "string" },
+    ]);
+    expect(e3.allFieldsTypeMatch()).toStrictEqual([
+      { name: "boolean", type: "boolean" },
+    ]);
+    expect(e4.allFieldsTypeMatch()).toStrictEqual([
+      { name: "bigint", type: "bigint" },
+    ]);
+    expect(e5.allFieldsTypeMatch()).toStrictEqual([
+      { name: "symbol", type: "symbol" },
+    ]);
   });
 
   test("Field type validation fails if not all fields are present and strict mode is set", () => {
     const e = new FieldValidator(mockFieldsDefinition, mockInvalidExtraData);
-    expect(e.allFieldsTypeMatch(true)).toBe(false);
+    expect(e.allFieldsTypeMatch(true)).toStrictEqual([
+      { name: "other", type: "undefined" },
+    ]);
   });
 
   test("Field type validation succeeds", () => {
     const e1 = new FieldValidator(mockFieldsDefinition, mockInvalidExtraData);
     const e2 = new FieldValidator(mockFieldsDefinition, mockValidData);
-    expect(e1.allFieldsTypeMatch(false)).toBe(true);
-    expect(e2.allFieldsTypeMatch(false)).toBe(true);
+    expect(e1.allFieldsTypeMatch()).toBe(true);
+    expect(e2.allFieldsTypeMatch()).toBe(true);
   });
 });
