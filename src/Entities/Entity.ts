@@ -103,10 +103,10 @@ export abstract class Entity<T> {
   /**
    * Validates the entity
    *
-   * @returns true
+   * @returns void
    * @throws EntityRequiredFieldsNotFoundError|EntityInvalidFieldTypesError
    */
-  protected validate(): true {
+  protected validate(): void {
     // Validator for required fields
     const requiredValidation = new FieldValidator(
       this.definition.required,
@@ -124,8 +124,5 @@ export abstract class Entity<T> {
 
     // This will fail if any field is not matching type - leaving error throw
     this.validateFieldsMatchingTypes(requiredValidation, optionalValidation);
-
-    // Everything fine, returns true
-    return true;
   }
 }

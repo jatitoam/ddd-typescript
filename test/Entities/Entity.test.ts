@@ -6,7 +6,7 @@ jest.mock("../../src/Utilities/Ids/UniqueEntityId");
 
 describe("Entity", () => {
   const mockProps = {
-    number: 1,
+    required: 1,
   };
 
   class MockEntity extends Entity<any> {
@@ -25,14 +25,20 @@ describe("Entity", () => {
       ],
     };
 
-    public validate(): true {
-      return super.validate();
+    public validate(): void {
+      super.validate();
     }
   }
 
+  let eg: MockEntity;
+
+  // Sets up the global valid entity and mocks
+  beforeAll(() => {
+    eg = new MockEntity(mockProps);
+  });
+
   test("Entity can be successfully instantiated without id", () => {
-    const e = new MockEntity(mockProps);
-    expect(e).toBeInstanceOf(Entity);
+    expect(eg).toBeInstanceOf(Entity);
   });
 
   test("Entity can be successfully instantiated with id", () => {
