@@ -3,5 +3,5 @@
  */
 export interface IFieldDefinition {
   readonly name: string;
-  readonly type: "String" | "Number" | "Boolean";
+  readonly type: "string" | "number" | "boolean" | "bigint" | "symbol";
 }
