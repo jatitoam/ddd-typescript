@@ -7,11 +7,6 @@ jest.mock("../../src/Utilities/Ids/UniqueEntityId");
 describe("Entity", () => {
   const mockProps = {
     number: 1,
-    string: "abc",
-    boolean: true,
-    bigint: 1e10,
-    symbol: Symbol("symbol"),
-    other: "something",
   };
 
   class MockEntity extends Entity<any> {
@@ -22,24 +17,7 @@ describe("Entity", () => {
           type: "number",
         },
       ],
-      optional: [
-        {
-          name: "string",
-          type: "string",
-        },
-        {
-          name: "boolean",
-          type: "boolean",
-        },
-        {
-          name: "bigint",
-          type: "bigint",
-        },
-        {
-          name: "symbol",
-          type: "symbol",
-        },
-      ],
+      optional: [],
     };
   }
 
