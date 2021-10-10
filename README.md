@@ -1,6 +1,8 @@
 # DDD for Typescript
 
 [![CodeQL Status](https://github.com/jatitoam/ddd-typescript/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/jatitoam/ddd-typescript/actions/workflows/codeql-analysis.yml)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jatitoam/ddd-typescript/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/jatitoam/ddd-typescript/?branch=develop)
+[![Build Status](https://scrutinizer-ci.com/g/jatitoam/ddd-typescript/badges/build.png?b=develop)](https://scrutinizer-ci.com/g/jatitoam/ddd-typescript/build-status/develop)
 
 ## What is this?
 
