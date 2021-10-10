@@ -3,7 +3,6 @@
         "allowJs": true,
         "module": "commonjs",
         "moduleResolution": "node",
-        "baseUrl": "src",
         "pretty": true,
         "inlineSourceMap": true,
         "target": "es2020",
