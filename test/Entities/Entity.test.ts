@@ -104,17 +104,17 @@ describe("Entity", () => {
   });
 
   test("Entity can be successfully instantiated without id", () => {
-    const e = new MockEntity(mockProps);
+    const e = new MockEntity(mockProps, undefined, false);
     expect(e).toBeInstanceOf(Entity);
   });
 
   test("Entity can be successfully instantiated with id", () => {
-    const e = new MockEntity(mockProps, new UniqueEntityId());
+    const e = new MockEntity(mockProps, new UniqueEntityId(), false);
     expect(e).toBeInstanceOf(Entity);
   });
 
   test("Validation fails because of missing required fields", () => {
-    const e = new MockEntity(mockProps);
+    const e = new MockEntity(mockProps, undefined, false);
     try {
       e.validate();
       throw new Error();
@@ -124,7 +124,7 @@ describe("Entity", () => {
   });
 
   test("Validation fails because of invalid field types in both required and optional definitions", () => {
-    const e = new MockEntity(mockProps);
+    const e = new MockEntity(mockProps, undefined, false);
     try {
       e.validate();
       throw new Error();
@@ -134,7 +134,7 @@ describe("Entity", () => {
   });
 
   test("Validation fails because of invalid field types in required fields only", () => {
-    const e = new MockEntity(mockProps);
+    const e = new MockEntity(mockProps, undefined, false);
     try {
       e.validate();
       throw new Error();
@@ -144,7 +144,7 @@ describe("Entity", () => {
   });
 
   test("Validation fails because of invalid field types in optional fields only", () => {
-    const e = new MockEntity(mockProps);
+    const e = new MockEntity(mockProps, undefined, false);
     try {
       e.validate();
       throw new Error();
@@ -154,7 +154,13 @@ describe("Entity", () => {
   });
 
   test("Validation succeeds", () => {
-    const e = new MockEntity(mockProps);
+    const e = new MockEntity(mockProps, undefined, false);
     expect(e.validate()).toBe(true);
+  });
+
+  // This test is at the end so the field validation mock is using the default implementation (all good - true)
+  test("Builds with successful validation", () => {
+    const e = new MockEntity(mockProps);
+    expect(e).toBeInstanceOf(Entity);
   });
 });

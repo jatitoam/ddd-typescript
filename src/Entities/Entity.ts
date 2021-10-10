@@ -30,10 +30,13 @@ export abstract class Entity<T> {
   /**
    * @param T props
    * @param UniqueEntityId id If not sent, it generates a UUID
+   * @throws EntityRequiredFieldsNotFound|EntityInvalidFieldTypes
    */
-  constructor(props: T, id?: UniqueEntityId) {
+  constructor(props: T, id?: UniqueEntityId, validate: Boolean = true) {
     this._id = id ? id : new UniqueEntityId();
     this.props = props;
+
+    if (validate) this.validate();
   }
 
   /**
