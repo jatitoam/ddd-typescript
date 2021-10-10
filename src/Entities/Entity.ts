@@ -1,4 +1,4 @@
-import { IEntityDefinition } from "Types/Entities/IEntityDefinition";
+import { IEntityDefinition } from "../Types/Entities/IEntityDefinition";
 import { UniqueEntityId } from "../Utilities/Ids/UniqueEntityId";
 
 /**
@@ -31,5 +31,12 @@ export abstract class Entity<T> {
   constructor(props: T, id?: UniqueEntityId) {
     this._id = id ? id : new UniqueEntityId();
     this.props = props;
+  }
+
+  /**
+   * Validate the entity
+   */
+  protected validate(): true {
+    return true;
   }
 }
