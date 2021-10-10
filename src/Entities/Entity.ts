@@ -30,42 +30,43 @@ export abstract class Entity<T> {
   /**
    * @param T props
    * @param UniqueEntityId id If not sent, it generates a UUID
+   *
    * @throws EntityRequiredFieldsNotFoundError|EntityInvalidFieldTypesError
    */
-  constructor(props: T, id?: UniqueEntityId, validate: Boolean = true) {
+  constructor(props: T, id?: UniqueEntityId) {
     this._id = id ? id : new UniqueEntityId();
     this.props = props;
 
-    if (validate) this.validate();
+    this.validate();
   }
 
   /**
-   * Validates the entity
+   * Validates if the required fields are present.  It will fail if it's not the case
    *
-   * @returns true
-   * @throws EntityRequiredFieldsNotFoundError|EntityInvalidFieldTypesError
+   * @returns void
    */
-  protected validate(): true {
-    // Validator for required fields
-    const requiredValidation = new FieldValidator(
-      this.definition.required,
-      this.props
-    );
-
+  protected validateFieldsRequired(
+    requiredValidation: FieldValidator<T>
+  ): void {
     // Fails if required fields are not all present using the field validator
     const requiredFieldsValidation = requiredValidation.allFieldsAvailable();
+
     if (requiredFieldsValidation !== true)
       throw new EntityRequiredFieldsNotFoundError(
         (<any>this).constructor.name,
         requiredFieldsValidation
       );
+  }
 
-    // Validator for optional fields
-    const optionalValidation = new FieldValidator(
-      this.definition.optional,
-      this.props
-    );
-
+  /**
+   * Validates if the required fields are present.  It will fail if it's not the case
+   *
+   * @returns void
+   */
+  protected validateFieldsMatchingTypes(
+    requiredValidation: FieldValidator<T>,
+    optionalValidation: FieldValidator<T>
+  ) {
     const requiredFieldsTypeValidation =
       requiredValidation.allFieldsTypeMatch();
     const optionalFieldsTypeValidation =
@@ -97,6 +98,32 @@ export abstract class Entity<T> {
         })
       );
     }
+  }
+
+  /**
+   * Validates the entity
+   *
+   * @returns true
+   * @throws EntityRequiredFieldsNotFoundError|EntityInvalidFieldTypesError
+   */
+  protected validate(): true {
+    // Validator for required fields
+    const requiredValidation = new FieldValidator(
+      this.definition.required,
+      this.props
+    );
+
+    // This will fail if fields are not present - leaving error throw
+    this.validateFieldsRequired(requiredValidation);
+
+    // Validator for optional fields
+    const optionalValidation = new FieldValidator(
+      this.definition.optional,
+      this.props
+    );
+
+    // This will fail if any field is not matching type - leaving error throw
+    this.validateFieldsMatchingTypes(requiredValidation, optionalValidation);
 
     // Everything fine, returns true
     return true;
