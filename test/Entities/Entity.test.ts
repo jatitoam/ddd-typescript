@@ -1,8 +1,10 @@
 import { Entity } from "../../src/Entities/Entity";
 import { IEntityDefinition } from "../../src/Types/Entities/IEntityDefinition";
 import { UniqueEntityId } from "../../src/Utilities/Ids/UniqueEntityId";
+import { FieldValidator } from "../../src/Utilities/Fields/FieldValidator";
 
 jest.mock("../../src/Utilities/Ids/UniqueEntityId");
+jest.mock("../../src/Utilities/Fields/FieldValidator");
 
 describe("Entity", () => {
   const mockProps = {

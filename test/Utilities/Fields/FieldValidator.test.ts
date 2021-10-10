@@ -1,5 +1,5 @@
 import { IFieldDefinition } from "../../../src/Types/Entities/IFieldDefinition";
-import { FieldValidator } from "../../../src/Utilities/Utilities/Fields/FieldValidator";
+import { FieldValidator } from "../../../src/Utilities/Fields/FieldValidator";
 
 describe("FieldValidator", () => {
   class MockFieldValidator<T> extends FieldValidator<T> {
