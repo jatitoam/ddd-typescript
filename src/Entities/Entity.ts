@@ -29,13 +29,15 @@ export abstract class Entity<T> {
 
   /**
    * @param T props
+   * @param IEntityDefinition definition Needed for each specific entity overriding this entity.  The child entity should not expose this parameter in its own constructor
    * @param UniqueEntityId id If not sent, it generates a UUID
    *
    * @throws EntityRequiredFieldsNotFoundError|EntityInvalidFieldTypesError
    */
-  constructor(props: T, id?: UniqueEntityId) {
-    this._id = id ? id : new UniqueEntityId();
+  constructor(props: T, definition: IEntityDefinition, id?: UniqueEntityId) {
     this.props = props;
+    this.definition = definition;
+    this._id = id ? id : new UniqueEntityId();
 
     this.validate();
   }
