@@ -1,6 +1,6 @@
 import { NotFoundError } from "../NotFoundError";
 
-export class EntityRequiredFieldsNotFound extends NotFoundError {
+export class EntityRequiredFieldsNotFoundError extends NotFoundError {
   message: string = "Required field(s) %s was not found in %s";
 
   constructor(entity: string, fields: string[]) {

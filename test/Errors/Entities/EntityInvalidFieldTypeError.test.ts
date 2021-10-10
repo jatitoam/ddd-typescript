@@ -1,8 +1,12 @@
-import { EntityInvalidFieldTypes } from "../../../src/Errors/Entities/EntityInvalidFieldTypes";
+import { EntityInvalidFieldTypesError } from "../../../src/Errors/Entities/EntityInvalidFieldTypesError";
 
-describe("EntityInvalidFieldTypes", () => {
-  const es = new EntityInvalidFieldTypes("something", ["dummy1"], ["type1"]);
-  const ep = new EntityInvalidFieldTypes(
+describe("EntityInvalidFieldTypesError", () => {
+  const es = new EntityInvalidFieldTypesError(
+    "something",
+    ["dummy1"],
+    ["type1"]
+  );
+  const ep = new EntityInvalidFieldTypesError(
     "something",
     ["dummy1", "dummy2"],
     ["type1", "type2"]
@@ -11,9 +15,9 @@ describe("EntityInvalidFieldTypes", () => {
     try {
       throw es;
     } catch (e) {
-      expect(e).toBeInstanceOf(EntityInvalidFieldTypes);
+      expect(e).toBeInstanceOf(EntityInvalidFieldTypesError);
       expect(e.code).toBe(406);
-      expect(e.name).toBe("EntityInvalidFieldTypes");
+      expect(e.name).toBe("EntityInvalidFieldTypesError");
     }
   });
 

@@ -1,5 +1,5 @@
-import { EntityInvalidFieldTypes } from "../Errors/Entities/EntityInvalidFieldTypes";
-import { EntityRequiredFieldsNotFound } from "../Errors/Entities/EntityRequiredFieldsNotFound";
+import { EntityInvalidFieldTypesError } from "../Errors/Entities/EntityInvalidFieldTypesError";
+import { EntityRequiredFieldsNotFoundError } from "../Errors/Entities/EntityRequiredFieldsNotFoundError";
 import { IEntityDefinition } from "../Types/Entities/IEntityDefinition";
 import { FieldValidator } from "../Utilities/Fields/FieldValidator";
 import { UniqueEntityId } from "../Utilities/Ids/UniqueEntityId";
@@ -29,43 +29,46 @@ export abstract class Entity<T> {
 
   /**
    * @param T props
+   * @param IEntityDefinition definition Needed for each specific entity overriding this entity.  The child entity should not expose this parameter in its own constructor
    * @param UniqueEntityId id If not sent, it generates a UUID
-   * @throws EntityRequiredFieldsNotFound|EntityInvalidFieldTypes
+   *
+   * @throws EntityRequiredFieldsNotFoundError|EntityInvalidFieldTypesError
    */
-  constructor(props: T, id?: UniqueEntityId, validate: Boolean = true) {
-    this._id = id ? id : new UniqueEntityId();
+  constructor(props: T, definition: IEntityDefinition, id?: UniqueEntityId) {
     this.props = props;
+    this.definition = definition;
+    this._id = id ? id : new UniqueEntityId();
 
-    if (validate) this.validate();
+    this.validate();
   }
 
   /**
-   * Validates the entity
+   * Validates if the required fields are present.  It will fail if it's not the case
    *
-   * @returns true
-   * @throws EntityRequiredFieldsNotFound|EntityInvalidFieldTypes
+   * @returns void
    */
-  protected validate(): true {
-    // Validator for required fields
-    const requiredValidation = new FieldValidator(
-      this.definition.required,
-      this.props
-    );
-
+  protected validateFieldsRequired(
+    requiredValidation: FieldValidator<T>
+  ): void {
     // Fails if required fields are not all present using the field validator
     const requiredFieldsValidation = requiredValidation.allFieldsAvailable();
+
     if (requiredFieldsValidation !== true)
-      throw new EntityRequiredFieldsNotFound(
+      throw new EntityRequiredFieldsNotFoundError(
         (<any>this).constructor.name,
         requiredFieldsValidation
       );
+  }
 
-    // Validator for optional fields
-    const optionalValidation = new FieldValidator(
-      this.definition.optional,
-      this.props
-    );
-
+  /**
+   * Validates if the required fields are present.  It will fail if it's not the case
+   *
+   * @returns void
+   */
+  protected validateFieldsMatchingTypes(
+    requiredValidation: FieldValidator<T>,
+    optionalValidation: FieldValidator<T>
+  ) {
     const requiredFieldsTypeValidation =
       requiredValidation.allFieldsTypeMatch();
     const optionalFieldsTypeValidation =
@@ -87,7 +90,7 @@ export abstract class Entity<T> {
       );
 
       // Throws an exception with the joint array's names and types
-      throw new EntityInvalidFieldTypes(
+      throw new EntityInvalidFieldTypesError(
         <any>this.constructor.name,
         invalidFields.map((field) => {
           return field.name;
@@ -97,8 +100,31 @@ export abstract class Entity<T> {
         })
       );
     }
+  }
 
-    // Everything fine, returns true
-    return true;
+  /**
+   * Validates the entity
+   *
+   * @returns void
+   * @throws EntityRequiredFieldsNotFoundError|EntityInvalidFieldTypesError
+   */
+  protected validate(): void {
+    // Validator for required fields
+    const requiredValidation = new FieldValidator(
+      this.definition.required,
+      this.props
+    );
+
+    // This will fail if fields are not present - leaving error throw
+    this.validateFieldsRequired(requiredValidation);
+
+    // Validator for optional fields
+    const optionalValidation = new FieldValidator(
+      this.definition.optional,
+      this.props
+    );
+
+    // This will fail if any field is not matching type - leaving error throw
+    this.validateFieldsMatchingTypes(requiredValidation, optionalValidation);
   }
 }
