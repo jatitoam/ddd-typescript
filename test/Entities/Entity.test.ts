@@ -9,27 +9,35 @@ describe("Entity", () => {
     number: 1,
     string: "abc",
     boolean: true,
+    bigint: 1e10,
+    symbol: Symbol("symbol"),
     other: "something",
   };
-  const wrongMockProps = { number: true, string: 1, boolean: "abc" };
-  const missingMockProps = { string: "abc", boolean: true };
 
   class MockEntity extends Entity<any> {
     protected readonly definition: IEntityDefinition = {
       required: [
         {
           name: "number",
-          type: "Number",
+          type: "number",
         },
       ],
       optional: [
         {
           name: "string",
-          type: "String",
+          type: "string",
         },
         {
           name: "boolean",
-          type: "Boolean",
+          type: "boolean",
+        },
+        {
+          name: "bigint",
+          type: "bigint",
+        },
+        {
+          name: "symbol",
+          type: "symbol",
         },
       ],
     };
