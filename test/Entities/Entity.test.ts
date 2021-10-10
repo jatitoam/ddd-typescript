@@ -2,9 +2,9 @@ import { Entity } from "../../src/Entities/Entity";
 import { IEntityDefinition } from "../../src/Types/Entities/IEntityDefinition";
 import { UniqueEntityId } from "../../src/Utilities/Ids/UniqueEntityId";
 import { FieldValidator } from "../../src/Utilities/Fields/FieldValidator";
-import { EntityRequiredFieldsNotFound } from "../../src/Errors/Entities/EntityRequiredFieldsNotFound";
+import { EntityRequiredFieldsNotFoundError } from "../../src/Errors/Entities/EntityRequiredFieldsNotFoundError";
 import { IFieldDefinition } from "../../src/Types/Entities/IFieldDefinition";
-import { EntityInvalidFieldTypes } from "../../src/Errors/Entities/EntityInvalidFieldTypes";
+import { EntityInvalidFieldTypesError } from "../../src/Errors/Entities/EntityInvalidFieldTypesError";
 
 jest.mock("../../src/Utilities/Ids/UniqueEntityId");
 jest.mock("../../src/Utilities/Fields/FieldValidator");
@@ -119,7 +119,7 @@ describe("Entity", () => {
       e.validate();
       throw new Error();
     } catch (err) {
-      expect(err).toBeInstanceOf(EntityRequiredFieldsNotFound);
+      expect(err).toBeInstanceOf(EntityRequiredFieldsNotFoundError);
     }
   });
 
@@ -129,7 +129,7 @@ describe("Entity", () => {
       e.validate();
       throw new Error();
     } catch (err) {
-      expect(err).toBeInstanceOf(EntityInvalidFieldTypes);
+      expect(err).toBeInstanceOf(EntityInvalidFieldTypesError);
     }
   });
 
@@ -139,7 +139,7 @@ describe("Entity", () => {
       e.validate();
       throw new Error();
     } catch (err) {
-      expect(err).toBeInstanceOf(EntityInvalidFieldTypes);
+      expect(err).toBeInstanceOf(EntityInvalidFieldTypesError);
     }
   });
 
@@ -149,7 +149,7 @@ describe("Entity", () => {
       e.validate();
       throw new Error();
     } catch (err) {
-      expect(err).toBeInstanceOf(EntityInvalidFieldTypes);
+      expect(err).toBeInstanceOf(EntityInvalidFieldTypesError);
     }
   });
 

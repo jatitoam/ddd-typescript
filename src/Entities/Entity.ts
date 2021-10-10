@@ -1,5 +1,5 @@
-import { EntityInvalidFieldTypes } from "../Errors/Entities/EntityInvalidFieldTypes";
-import { EntityRequiredFieldsNotFound } from "../Errors/Entities/EntityRequiredFieldsNotFound";
+import { EntityInvalidFieldTypesError } from "../Errors/Entities/EntityInvalidFieldTypesError";
+import { EntityRequiredFieldsNotFoundError } from "../Errors/Entities/EntityRequiredFieldsNotFoundError";
 import { IEntityDefinition } from "../Types/Entities/IEntityDefinition";
 import { FieldValidator } from "../Utilities/Fields/FieldValidator";
 import { UniqueEntityId } from "../Utilities/Ids/UniqueEntityId";
@@ -30,7 +30,7 @@ export abstract class Entity<T> {
   /**
    * @param T props
    * @param UniqueEntityId id If not sent, it generates a UUID
-   * @throws EntityRequiredFieldsNotFound|EntityInvalidFieldTypes
+   * @throws EntityRequiredFieldsNotFoundError|EntityInvalidFieldTypesError
    */
   constructor(props: T, id?: UniqueEntityId, validate: Boolean = true) {
     this._id = id ? id : new UniqueEntityId();
@@ -43,7 +43,7 @@ export abstract class Entity<T> {
    * Validates the entity
    *
    * @returns true
-   * @throws EntityRequiredFieldsNotFound|EntityInvalidFieldTypes
+   * @throws EntityRequiredFieldsNotFoundError|EntityInvalidFieldTypesError
    */
   protected validate(): true {
     // Validator for required fields
@@ -55,7 +55,7 @@ export abstract class Entity<T> {
     // Fails if required fields are not all present using the field validator
     const requiredFieldsValidation = requiredValidation.allFieldsAvailable();
     if (requiredFieldsValidation !== true)
-      throw new EntityRequiredFieldsNotFound(
+      throw new EntityRequiredFieldsNotFoundError(
         (<any>this).constructor.name,
         requiredFieldsValidation
       );
@@ -87,7 +87,7 @@ export abstract class Entity<T> {
       );
 
       // Throws an exception with the joint array's names and types
-      throw new EntityInvalidFieldTypes(
+      throw new EntityInvalidFieldTypesError(
         <any>this.constructor.name,
         invalidFields.map((field) => {
           return field.name;

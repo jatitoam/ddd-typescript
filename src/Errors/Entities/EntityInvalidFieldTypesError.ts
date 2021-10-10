@@ -1,6 +1,6 @@
 import { GenericError } from "../GenericError";
 
-export class EntityInvalidFieldTypes extends GenericError {
+export class EntityInvalidFieldTypesError extends GenericError {
   code: number = 406;
   message: string = "Field(s) %s in %s are not the right type: %s";
 

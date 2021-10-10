@@ -1,8 +1,8 @@
-import { EntityRequiredFieldsNotFound } from "../../../src/Errors/Entities/EntityRequiredFieldsNotFound";
+import { EntityRequiredFieldsNotFoundError } from "../../../src/Errors/Entities/EntityRequiredFieldsNotFoundError";
 
 describe("EntityRequiredFieldNotFound", () => {
-  const es = new EntityRequiredFieldsNotFound("something", ["dummy1"]);
-  const ep = new EntityRequiredFieldsNotFound("something", [
+  const es = new EntityRequiredFieldsNotFoundError("something", ["dummy1"]);
+  const ep = new EntityRequiredFieldsNotFoundError("something", [
     "dummy1",
     "dummy2",
   ]);
@@ -10,9 +10,9 @@ describe("EntityRequiredFieldNotFound", () => {
     try {
       throw es;
     } catch (e) {
-      expect(e).toBeInstanceOf(EntityRequiredFieldsNotFound);
+      expect(e).toBeInstanceOf(EntityRequiredFieldsNotFoundError);
       expect(e.code).toBe(404);
-      expect(e.name).toBe("EntityRequiredFieldsNotFound");
+      expect(e.name).toBe("EntityRequiredFieldsNotFoundError");
     }
   });
 
