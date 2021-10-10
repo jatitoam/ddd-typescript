@@ -1,6 +1,6 @@
 # DDD for Typescript
 
-![CodeQL](https://github.com/jatitoam/ddd-typescript/actions/workflows/codeql-analysis.yml/badge.svg)
+[![CodeQL Status](https://github.com/jatitoam/ddd-typescript/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/jatitoam/ddd-typescript/actions/workflows/codeql-analysis.yml)
 
 ## What is this?
 
