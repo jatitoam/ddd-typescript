@@ -1,4 +1,4 @@
-import { IFieldDefinition } from "../../Types/Entities/IFieldDefinition";
+import { IFieldDefinition } from "Types/Entities/IFieldDefinition";
 
 /**
  * Field validator class.  Using a generic type for data.

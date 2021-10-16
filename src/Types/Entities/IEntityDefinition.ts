@@ -1,4 +1,4 @@
-import { IFieldDefinition } from "./IFieldDefinition";
+import { IFieldDefinition } from "Types/Entities/IFieldDefinition";
 
 /**
  * Entity definition with a set of required and optional fields
