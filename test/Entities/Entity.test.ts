@@ -91,6 +91,11 @@ describe("Entity", () => {
     eg = new MockEntity(mockProps);
   });
 
+  beforeEach(() => {
+    (UniqueEntityId as jest.MockedClass<any>).mockClear();
+    (FieldValidator as jest.MockedClass<any>).mockClear();
+  });
+
   test("Entity can be successfully instantiated without id", () => {
     expect(eg).toBeInstanceOf(Entity);
   });
