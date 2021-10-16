@@ -1,4 +1,4 @@
-import { GenericError } from "../GenericError";
+import { GenericError } from "Errors/GenericError";
 
 export class EntityInvalidFieldTypesError extends GenericError {
   code: number = 406;

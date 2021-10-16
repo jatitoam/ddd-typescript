@@ -1,4 +1,4 @@
-import { GenericError } from "./GenericError";
+import { GenericError } from "Errors/GenericError";
 
 /**
  * Error not found error - generic

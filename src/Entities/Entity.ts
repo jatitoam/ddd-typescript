@@ -1,8 +1,8 @@
-import { EntityInvalidFieldTypesError } from "../Errors/Entities/EntityInvalidFieldTypesError";
-import { EntityRequiredFieldsNotFoundError } from "../Errors/Entities/EntityRequiredFieldsNotFoundError";
-import { IEntityDefinition } from "../Types/Entities/IEntityDefinition";
-import { FieldValidator } from "../Utilities/Fields/FieldValidator";
-import { UniqueEntityId } from "../Utilities/Ids/UniqueEntityId";
+import { EntityInvalidFieldTypesError } from "Errors/Entities/EntityInvalidFieldTypesError";
+import { EntityRequiredFieldsNotFoundError } from "Errors/Entities/EntityRequiredFieldsNotFoundError";
+import { IEntityDefinition } from "Types/Entities/IEntityDefinition";
+import { FieldValidator } from "Utilities/Fields/FieldValidator";
+import { UniqueEntityId } from "Utilities/Ids/UniqueEntityId";
 
 /**
  * Abstract Entity class

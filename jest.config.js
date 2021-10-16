@@ -13,4 +13,5 @@ module.exports = {
       statements: 100,
     },
   },
+  modulePaths: ["node_modules", "src"],
 };

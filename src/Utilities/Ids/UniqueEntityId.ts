@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { Identifier } from "./Identifier";
+import { Identifier } from "Utilities/Ids/Identifier";
 
 /**
  * Unique entity id class - identifiers in string or number

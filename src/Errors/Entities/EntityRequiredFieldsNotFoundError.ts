@@ -1,4 +1,4 @@
-import { NotFoundError } from "../NotFoundError";
+import { NotFoundError } from "Errors/NotFoundError";
 
 export class EntityRequiredFieldsNotFoundError extends NotFoundError {
   message: string = "Required field(s) %s was not found in %s";
