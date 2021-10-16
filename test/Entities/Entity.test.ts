@@ -83,18 +83,45 @@ describe("Entity", () => {
   });
 
   // Missing required fields returned by the validator
-  test("Required field validation fails when the validator does", () => {
-    (FieldValidator as jest.MockedClass<any>).mockImplementationOnce(() => {
-      return {
-        allFieldsAvailable: jest.fn(mockReturnMissingField),
-      };
-    });
+  test("Entity validation breaks when the validator shows missing required fields", () => {
+    (FieldValidator as jest.MockedClass<any>)
+      .mockImplementationOnce(() => {
+        return {
+          allFieldsAvailable: jest.fn(mockReturnMissingField),
+        };
+      })
+      .mockImplementationOnce(() => {
+        return {
+          allFieldsAvailable: jest.fn(mockReturnMissingField),
+        };
+      })
+      .mockImplementationOnce(() => {
+        return {
+          allFieldsAvailable: jest.fn(mockReturnMissingField),
+        };
+      });
 
+    // validateFieldsRequired function
     try {
       eg.validateFieldsRequired(
         new FieldValidator(mockDefinition.required, mockProps)
       );
       throw new Error();
+    } catch (e) {
+      expect(e).toBeInstanceOf(EntityRequiredFieldsNotFoundError);
+    }
+
+    // validate function
+    try {
+      eg.validate();
+      throw new Error();
+    } catch (e) {
+      expect(e).toBeInstanceOf(EntityRequiredFieldsNotFoundError);
+    }
+
+    // constructor
+    try {
+      const ef = new MockEntity(mockProps);
     } catch (e) {
       expect(e).toBeInstanceOf(EntityRequiredFieldsNotFoundError);
     }
@@ -122,8 +149,33 @@ describe("Entity", () => {
           allFieldsAvailable: jest.fn(mockReturnTrue),
           allFieldsTypeMatch: jest.fn(mockReturnInvalidField),
         };
+      })
+      .mockImplementationOnce(() => {
+        return {
+          allFieldsAvailable: jest.fn(mockReturnTrue),
+          allFieldsTypeMatch: jest.fn(mockReturnInvalidField),
+        };
+      })
+      .mockImplementationOnce(() => {
+        return {
+          allFieldsAvailable: jest.fn(mockReturnTrue),
+          allFieldsTypeMatch: jest.fn(mockReturnInvalidField),
+        };
+      })
+      .mockImplementationOnce(() => {
+        return {
+          allFieldsAvailable: jest.fn(mockReturnTrue),
+          allFieldsTypeMatch: jest.fn(mockReturnInvalidField),
+        };
+      })
+      .mockImplementationOnce(() => {
+        return {
+          allFieldsAvailable: jest.fn(mockReturnTrue),
+          allFieldsTypeMatch: jest.fn(mockReturnInvalidField),
+        };
       });
 
+    // validateFieldsMatchingTypes function
     try {
       eg.validateFieldsMatchingTypes(
         new FieldValidator(mockDefinition.required, mockProps),
@@ -133,22 +185,86 @@ describe("Entity", () => {
     } catch (e) {
       expect(e).toBeInstanceOf(EntityInvalidFieldTypesError);
     }
+
+    // validate function
+    try {
+      eg.validate();
+      throw new Error();
+    } catch (e) {
+      expect(e).toBeInstanceOf(EntityInvalidFieldTypesError);
+    }
+
+    // constructor
+    try {
+      const ef = new MockEntity(mockProps);
+      throw new Error();
+    } catch (e) {
+      expect(e).toBeInstanceOf(EntityInvalidFieldTypesError);
+    }
   });
 
   // Non-matching types in required fields returned by the validator (first pass breaks)
   test("Required field validation fails when the validator does", () => {
-    (FieldValidator as jest.MockedClass<any>).mockImplementationOnce(() => {
-      return {
-        allFieldsAvailable: jest.fn(mockReturnTrue),
-        allFieldsTypeMatch: jest.fn(mockReturnInvalidField),
-      };
-    });
+    (FieldValidator as jest.MockedClass<any>)
+      .mockImplementationOnce(() => {
+        return {
+          allFieldsAvailable: jest.fn(mockReturnTrue),
+          allFieldsTypeMatch: jest.fn(mockReturnInvalidField),
+        };
+      })
+      .mockImplementationOnce(() => {
+        return {
+          allFieldsAvailable: jest.fn(mockReturnTrue),
+          allFieldsTypeMatch: jest.fn(mockReturnTrue),
+        };
+      })
+      .mockImplementationOnce(() => {
+        return {
+          allFieldsAvailable: jest.fn(mockReturnTrue),
+          allFieldsTypeMatch: jest.fn(mockReturnInvalidField),
+        };
+      })
+      .mockImplementationOnce(() => {
+        return {
+          allFieldsAvailable: jest.fn(mockReturnTrue),
+          allFieldsTypeMatch: jest.fn(mockReturnTrue),
+        };
+      })
+      .mockImplementationOnce(() => {
+        return {
+          allFieldsAvailable: jest.fn(mockReturnTrue),
+          allFieldsTypeMatch: jest.fn(mockReturnInvalidField),
+        };
+      })
+      .mockImplementationOnce(() => {
+        return {
+          allFieldsAvailable: jest.fn(mockReturnTrue),
+          allFieldsTypeMatch: jest.fn(mockReturnTrue),
+        };
+      });
 
+    // validateFieldsMatchingTypes function
     try {
       eg.validateFieldsMatchingTypes(
         new FieldValidator(mockDefinition.required, mockProps),
         new FieldValidator(mockDefinition.optional, mockProps)
       );
+      throw new Error();
+    } catch (e) {
+      expect(e).toBeInstanceOf(EntityInvalidFieldTypesError);
+    }
+
+    // validate function
+    try {
+      eg.validate();
+      throw new Error();
+    } catch (e) {
+      expect(e).toBeInstanceOf(EntityInvalidFieldTypesError);
+    }
+
+    // constructor
+    try {
+      const ef = new MockEntity(mockProps);
       throw new Error();
     } catch (e) {
       expect(e).toBeInstanceOf(EntityInvalidFieldTypesError);
@@ -169,13 +285,54 @@ describe("Entity", () => {
           allFieldsAvailable: jest.fn(mockReturnTrue),
           allFieldsTypeMatch: jest.fn(mockReturnInvalidField),
         };
+      })
+      .mockImplementationOnce(() => {
+        return {
+          allFieldsAvailable: jest.fn(mockReturnTrue),
+          allFieldsTypeMatch: jest.fn(mockReturnTrue),
+        };
+      })
+      .mockImplementationOnce(() => {
+        return {
+          allFieldsAvailable: jest.fn(mockReturnTrue),
+          allFieldsTypeMatch: jest.fn(mockReturnInvalidField),
+        };
+      })
+      .mockImplementationOnce(() => {
+        return {
+          allFieldsAvailable: jest.fn(mockReturnTrue),
+          allFieldsTypeMatch: jest.fn(mockReturnTrue),
+        };
+      })
+      .mockImplementationOnce(() => {
+        return {
+          allFieldsAvailable: jest.fn(mockReturnTrue),
+          allFieldsTypeMatch: jest.fn(mockReturnInvalidField),
+        };
       });
 
+    // validateFieldsMatchingTypes function
     try {
       eg.validateFieldsMatchingTypes(
         new FieldValidator(mockDefinition.required, mockProps),
         new FieldValidator(mockDefinition.optional, mockProps)
       );
+      throw new Error();
+    } catch (e) {
+      expect(e).toBeInstanceOf(EntityInvalidFieldTypesError);
+    }
+
+    // validate function
+    try {
+      eg.validate();
+      throw new Error();
+    } catch (e) {
+      expect(e).toBeInstanceOf(EntityInvalidFieldTypesError);
+    }
+
+    // constructor
+    try {
+      const ef = new MockEntity(mockProps);
       throw new Error();
     } catch (e) {
       expect(e).toBeInstanceOf(EntityInvalidFieldTypesError);
@@ -194,49 +351,6 @@ describe("Entity", () => {
   test("Entity can be successfully instantiated with id", () => {
     const e = new MockEntity(mockProps, new UniqueEntityId());
     expect(e).toBeInstanceOf(Entity);
-  });
-
-  // Missing required fields returned by the validator
-  test("Entity validation breaks when the validator shows missing required fields", () => {
-    (FieldValidator as jest.MockedClass<any>).mockImplementationOnce(() => {
-      return {
-        allFieldsAvailable: jest.fn(mockReturnMissingField),
-      };
-    });
-
-    try {
-      eg.validate();
-      throw new Error();
-    } catch (e) {
-      expect(e).toBeInstanceOf(EntityRequiredFieldsNotFoundError);
-    }
-  });
-
-  // Non-matching types in required and optional fields returned by the validator (any one/two passes break)
-  test("Entity validation breaks when the validator shows missing required fields", () => {
-    (FieldValidator as jest.MockedClass<any>)
-      .mockImplementationOnce(() => {
-        return {
-          allFieldsAvailable: jest.fn(mockReturnTrue),
-          allFieldsTypeMatch: jest.fn(mockReturnInvalidField),
-        };
-      })
-      .mockImplementationOnce(() => {
-        return {
-          allFieldsAvailable: jest.fn(mockReturnTrue),
-          allFieldsTypeMatch: jest.fn(mockReturnInvalidField),
-        };
-      });
-
-    try {
-      eg.validateFieldsMatchingTypes(
-        new FieldValidator(mockDefinition.required, mockProps),
-        new FieldValidator(mockDefinition.optional, mockProps)
-      );
-      throw new Error();
-    } catch (e) {
-      expect(e).toBeInstanceOf(EntityInvalidFieldTypesError);
-    }
   });
 
   test("Entity validation succeeds", () => {
