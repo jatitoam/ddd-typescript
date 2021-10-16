@@ -8,7 +8,7 @@ export class Identifier<T> {
     this.value = value;
   }
 
-  equals(id?: Identifier<T>): boolean {
+  public equals(id?: Identifier<T>): boolean {
     if (id === null || id === undefined) {
       return false;
     }
@@ -20,7 +20,7 @@ export class Identifier<T> {
    *
    * @returns string
    */
-  toString() {
+  public toString() {
     return String(this.value);
   }
 
@@ -29,7 +29,7 @@ export class Identifier<T> {
    *
    * @returns T
    */
-  toValue(): T {
+  public toValue(): T {
     return this.value;
   }
 }

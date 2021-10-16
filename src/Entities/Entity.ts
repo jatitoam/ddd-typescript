@@ -127,4 +127,22 @@ export abstract class Entity<T> {
     // This will fail if any field is not matching type - leaving error throw
     this.validateFieldsMatchingTypes(requiredValidation, optionalValidation);
   }
+
+  /**
+   * Gets the id in its natural type
+   *
+   * @returns string|number
+   */
+  public getId(): string | number {
+    return this._id.toValue();
+  }
+
+  /**
+   * Gets the id stringified
+   *
+   * @returns string
+   */
+  public getIdString(): string {
+    return this._id.toString();
+  }
 }

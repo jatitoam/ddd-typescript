@@ -66,8 +66,21 @@ describe("Entity", () => {
 
   // Sets up the global valid entity and mocks
   beforeAll(() => {
+    (UniqueEntityId as jest.MockedClass<any>)
+      // Default implementation of UniqueEntityId has a number 1 as id
+      .mockImplementation(() => {
+        return {
+          toValue: jest.fn(() => {
+            return 1;
+          }),
+          toString: jest.fn(() => {
+            return "1";
+          }),
+        };
+      });
+
     (FieldValidator as jest.MockedClass<any>)
-      // Validation fails because of missing required fields
+      // Default implementation of FieldValidator succeeds inconditionally
       .mockImplementation(() => {
         return {
           allFieldsAvailable: jest.fn(mockReturnTrue),
@@ -356,5 +369,15 @@ describe("Entity", () => {
   test("Entity validation succeeds", () => {
     eg.validate();
     expect(eg).toBeInstanceOf(Entity);
+  });
+
+  test("Getting the id in its natural type succeeds", () => {
+    const id = eg.getId();
+    expect(id).toBe(1);
+  });
+
+  test("Getting the stringified id succeeds", () => {
+    const id = eg.getIdString();
+    expect(id).toBe("1");
   });
 });
