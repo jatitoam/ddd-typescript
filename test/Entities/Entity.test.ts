@@ -60,14 +60,31 @@ describe("Entity", () => {
     public validate(): void {
       super.validate();
     }
+
+    public get_Id(): UniqueEntityId {
+      return this._id;
+    }
   }
 
   let eg: MockEntity;
 
   // Sets up the global valid entity and mocks
   beforeAll(() => {
+    (UniqueEntityId as jest.MockedClass<any>)
+      // Default implementation of UniqueEntityId has a number 1 as id
+      .mockImplementation(() => {
+        return {
+          toValue: jest.fn(() => {
+            return 1;
+          }),
+          toString: jest.fn(() => {
+            return "1";
+          }),
+        };
+      });
+
     (FieldValidator as jest.MockedClass<any>)
-      // Validation fails because of missing required fields
+      // Default implementation of FieldValidator succeeds inconditionally
       .mockImplementation(() => {
         return {
           allFieldsAvailable: jest.fn(mockReturnTrue),
@@ -76,6 +93,11 @@ describe("Entity", () => {
       });
 
     eg = new MockEntity(mockProps);
+  });
+
+  beforeEach(() => {
+    (UniqueEntityId as jest.MockedClass<any>).mockClear();
+    (FieldValidator as jest.MockedClass<any>).mockClear();
   });
 
   test("Entity can be successfully instantiated without id", () => {
@@ -356,5 +378,17 @@ describe("Entity", () => {
   test("Entity validation succeeds", () => {
     eg.validate();
     expect(eg).toBeInstanceOf(Entity);
+  });
+
+  test("Getting the id in its natural type succeeds", () => {
+    const id = eg.getId();
+    expect(id).toBe(1);
+    expect(eg.get_Id().toValue).toHaveBeenCalledTimes(1);
+  });
+
+  test("Getting the stringified id succeeds", () => {
+    const id = eg.getIdString();
+    expect(id).toBe("1");
+    expect(eg.get_Id().toString).toHaveBeenCalledTimes(1);
   });
 });
