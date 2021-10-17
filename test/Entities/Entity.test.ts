@@ -60,6 +60,10 @@ describe("Entity", () => {
     public validate(): void {
       super.validate();
     }
+
+    public get_Id(): UniqueEntityId {
+      return this._id;
+    }
   }
 
   let eg: MockEntity;
@@ -379,10 +383,12 @@ describe("Entity", () => {
   test("Getting the id in its natural type succeeds", () => {
     const id = eg.getId();
     expect(id).toBe(1);
+    expect(eg.get_Id().toValue).toHaveBeenCalledTimes(1);
   });
 
   test("Getting the stringified id succeeds", () => {
     const id = eg.getIdString();
     expect(id).toBe("1");
+    expect(eg.get_Id().toString).toHaveBeenCalledTimes(1);
   });
 });
