@@ -1,13 +1,13 @@
 import { Entity } from "../../src/Entities/Entity";
 import { IEntityDefinition } from "../../src/Types/Entities/IEntityDefinition";
-import { UniqueEntityId } from "../../src/Utilities/Ids/UniqueEntityId";
+import { Identifier } from "../../src/Utilities/Ids/Identifier";
 import { EntityRequiredFieldsNotFoundError } from "../../src/Errors/Entities/EntityRequiredFieldsNotFoundError";
 import { IFieldDefinition } from "../../src/Types/Entities/IFieldDefinition";
 import { FieldValidator } from "../../src/Utilities/Fields/FieldValidator";
 import { EntityInvalidFieldTypesError } from "../../src/Errors/Entities/EntityInvalidFieldTypesError";
 
-jest.mock("../../src/Utilities/Ids/UniqueEntityId");
 jest.mock("../../src/Utilities/Fields/FieldValidator");
+jest.mock("../../src/Utilities/Ids/Identifier");
 
 describe("Entity", () => {
   const mockProps = {
@@ -40,7 +40,7 @@ describe("Entity", () => {
   }
 
   class MockEntity extends Entity<any> {
-    constructor(props: any, id?: UniqueEntityId) {
+    constructor(props: any, id?: Identifier<any>) {
       super(props, mockDefinition, id);
     }
 
@@ -61,7 +61,7 @@ describe("Entity", () => {
       super.validate();
     }
 
-    public get_Id(): UniqueEntityId {
+    public get_Id(): Identifier<any> {
       return this._id;
     }
   }
@@ -70,7 +70,7 @@ describe("Entity", () => {
 
   // Sets up the global valid entity and mocks
   beforeAll(() => {
-    (UniqueEntityId as jest.MockedClass<any>)
+    (Identifier as jest.MockedClass<any>)
       // Default implementation of UniqueEntityId has a number 1 as id
       .mockImplementation(() => {
         return {
@@ -96,7 +96,7 @@ describe("Entity", () => {
   });
 
   beforeEach(() => {
-    (UniqueEntityId as jest.MockedClass<any>).mockClear();
+    (Identifier as jest.MockedClass<any>).mockClear();
     (FieldValidator as jest.MockedClass<any>).mockClear();
   });
 
@@ -371,7 +371,7 @@ describe("Entity", () => {
   });
 
   test("Entity can be successfully instantiated with id", () => {
-    const e = new MockEntity(mockProps, new UniqueEntityId());
+    const e = new MockEntity(mockProps, new Identifier(1));
     expect(e).toBeInstanceOf(Entity);
   });
 

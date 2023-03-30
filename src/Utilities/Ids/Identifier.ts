@@ -20,7 +20,7 @@ export class Identifier<T> {
    *
    * @returns string
    */
-  public toString() {
+  public toString(): string {
     return String(this.value);
   }
 
