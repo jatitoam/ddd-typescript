@@ -15,10 +15,6 @@ describe("Entity", () => {
     dummyString: "x",
   };
 
-  function mockReturnTrue(): true {
-    return true;
-  }
-
   class MockEntity extends Entity<mockType> {
     constructor(props: mockType, id?: UniqueEntityId) {
       super(props, id);
