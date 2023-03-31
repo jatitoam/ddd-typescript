@@ -57,4 +57,16 @@ export abstract class Entity<T> {
 
     return this.props[field];
   }
+
+  /**
+   * Serialize the entity as a JSON
+   *
+   * @returns object
+   */
+  public serialize(): object {
+    return {
+      id: this._id.toValue(),
+      ...this.props,
+    };
+  }
 }

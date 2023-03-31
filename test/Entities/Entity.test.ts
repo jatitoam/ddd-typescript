@@ -82,4 +82,13 @@ describe("Entity", () => {
     const i = eg.get("dummyInt");
     expect(i).toBe(1);
   });
+
+  test("Serialization", () => {
+    const json = eg.serialize();
+    expect(json).toStrictEqual({
+      id: 1,
+      dummyInt: 1,
+      dummyString: "x",
+    });
+  });
 });
