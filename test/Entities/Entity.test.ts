@@ -15,6 +15,11 @@ describe("Entity", () => {
     dummyString: "x",
   };
 
+  const mockPropsId = {
+    id: "ccd2fa5b-05c3-4239-a8f7-6023a7940dc0",
+    dummyInt: 1,
+  };
+
   class MockEntity extends Entity<mockType> {
     constructor(props: mockType, id?: UniqueEntityId) {
       super(props, id);
@@ -55,6 +60,11 @@ describe("Entity", () => {
 
   test("Entity can be successfully instantiated with id", () => {
     const e = new MockEntity(mockProps, new UniqueEntityId());
+    expect(e).toBeInstanceOf(Entity);
+  });
+
+  test("Entity can be successfully instantiated with props.id", () => {
+    const e = new MockEntity(mockPropsId);
     expect(e).toBeInstanceOf(Entity);
   });
 
