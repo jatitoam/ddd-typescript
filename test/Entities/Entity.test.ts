@@ -1,5 +1,6 @@
 import { Entity } from "../../src/Entities/Entity";
 import { UniqueEntityId } from "../../src/Utilities/Ids/UniqueEntityId";
+import { FieldNotFoundError } from "../../src/Errors/Entities/FieldNotFoundError";
 
 jest.mock("../../src/Utilities/Ids/UniqueEntityId");
 
@@ -71,5 +72,18 @@ describe("Entity", () => {
     const id = eg.getIdString();
     expect(id).toBe("1");
     expect(eg.get_Id().toString).toHaveBeenCalledTimes(1);
+  });
+
+  test("Exception found when an unexisting field is tried to be get", () => {
+    try {
+      eg.get("non-existing");
+    } catch (e) {
+      expect(e).toBeInstanceOf(FieldNotFoundError);
+    }
+  });
+
+  test("Field is found when getting it", () => {
+    const i = eg.get("dummyInt");
+    expect(i).toBe(1);
   });
 });

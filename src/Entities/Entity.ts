@@ -1,3 +1,4 @@
+import { FieldNotFoundError } from "Errors/Entities/FieldNotFoundError";
 import { UniqueEntityId } from "Utilities/Ids/UniqueEntityId";
 
 /**
@@ -40,5 +41,20 @@ export abstract class Entity<T> {
    */
   public getIdString(): string {
     return this._id.toString();
+  }
+
+  /**
+   * Field getter
+   *
+   * @param field
+   *
+   * @throws FieldNotFoundError
+   */
+  public get(field: string): any {
+    if (typeof this.props[field] === "undefined") {
+      throw new FieldNotFoundError(field);
+    }
+
+    return this.props[field];
   }
 }
