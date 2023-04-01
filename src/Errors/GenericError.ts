@@ -2,8 +2,8 @@
  * Generic error - base error class for the application
  */
 export class GenericError extends Error {
-  code: number = 500;
-  message: string = "Application error";
+  code = 500;
+  message = "Application error";
 
   constructor(message?: string) {
     super(message);

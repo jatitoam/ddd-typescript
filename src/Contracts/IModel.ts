@@ -1,3 +1,3 @@
 export interface IModel {
-  readonly collection: String;
+  readonly collection: string;
 }
