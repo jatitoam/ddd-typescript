@@ -6,8 +6,8 @@ jest.mock("../../src/Utilities/Ids/UniqueEntityId");
 
 describe("Entity", () => {
   type mockType = {
-    dummyInt: Number;
-    dummyString?: String;
+    dummyInt: number;
+    dummyString?: string;
   };
 
   const mockProps = {
