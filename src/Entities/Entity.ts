@@ -1,10 +1,12 @@
+import { IEntity } from "Contracts/IEntity";
 import { FieldNotFoundError } from "Errors/Entities/FieldNotFoundError";
+import { IdValue } from "Types/IdValue";
 import { UniqueEntityId } from "Utilities/Ids/UniqueEntityId";
 
 /**
  * Abstract Entity class
  */
-export abstract class Entity<T> {
+export abstract class Entity<T> implements IEntity {
   /**
    * Id of the entity
    */
@@ -14,6 +16,11 @@ export abstract class Entity<T> {
    * Collection of properties
    */
   protected readonly props: T;
+
+  /**
+   * Name of the entity
+   */
+  public readonly name: string = "Entity";
 
   /**
    * @param T props
@@ -33,9 +40,9 @@ export abstract class Entity<T> {
   /**
    * Gets the id in its natural type
    *
-   * @returns string|number
+   * @returns IdValue
    */
-  public getId(): string | number {
+  public getId(): IdValue {
     return this._id.toValue();
   }
 
@@ -46,6 +53,15 @@ export abstract class Entity<T> {
    */
   public getIdString(): string {
     return this._id.toString();
+  }
+
+  /**
+   * Name getter
+   *
+   * @returns string
+   */
+  public getName(): string {
+    return this.name;
   }
 
   /**

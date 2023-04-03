@@ -101,4 +101,8 @@ describe("Entity", () => {
       dummyString: "x",
     });
   });
+
+  test("Name getter", () => {
+    expect(eg.getName()).toBe("Entity");
+  });
 });
