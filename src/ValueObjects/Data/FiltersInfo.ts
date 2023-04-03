@@ -23,8 +23,8 @@ export class FiltersInfo {
    * @param filters Dynamic filters key and their values
    * @param search Search value
    */
-  constructor(filters: Array<[string, ValueData]>, search: string) {
-    this.filters = this.arrayToStore(filters);
+  constructor(filters: Map<string, ValueData>, search: string) {
+    this.filters = this.mapToStore(filters);
     this.search = search;
   }
 
@@ -35,10 +35,10 @@ export class FiltersInfo {
    *
    * @returns Store
    */
-  protected arrayToStore(array: Array<[string, ValueData]>): Store {
+  protected mapToStore(map: Map<string, ValueData>): Store {
     const store = new Store();
 
-    array.forEach(([filter, value]) => {
+    map.forEach((value: ValueData, filter: string) => {
       store.set(filter, value);
     });
 

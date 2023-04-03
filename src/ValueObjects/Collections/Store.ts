@@ -126,4 +126,13 @@ export class Store {
     });
     return obj;
   }
+
+  /**
+   * Gets size of store
+   *
+   * @returns number
+   */
+  public getSize(): number {
+    return this.store.size;
+  }
 }

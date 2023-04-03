@@ -33,6 +33,7 @@ describe("Store", () => {
     expect(serialize).toBeInstanceOf(Object);
     expect(values.size).toBe(0);
     expect(Object.keys(serialize).length).toBe(0);
+    expect(store.getSize()).toBe(0);
   });
 
   test("Sanitize breaks with invalid key", () => {
@@ -74,6 +75,8 @@ describe("Store", () => {
     expect(serialize).toBeInstanceOf(Object);
     expect(Object.keys(serialize).length).toBe(1);
 
+    expect(store.getSize()).toBe(1);
+
     // First delete will succeed
     expect(store.delete("key")).toBeTruthy();
     // Second delete will fail
@@ -91,5 +94,6 @@ describe("Store", () => {
     const values = store.getValues();
     expect(values).toBeInstanceOf(Map);
     expect(values.size).toBe(2);
+    expect(store.getSize()).toBe(2);
   });
 });
